@@ -1,0 +1,9 @@
+plugins {
+    id 'java-library'
+    id 'my.project.gradle-plugin.base-project'
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+}

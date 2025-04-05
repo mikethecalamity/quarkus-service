@@ -1,0 +1,21 @@
+{
+  "extends": [
+    ":dependencyDashboard",
+    ":disableMajorUpdates",
+    ":rebaseStalePrs",
+    "config:recommended",
+    "group:allNonMajor"
+  ],
+  "platformAutomerge": false,
+  "gitLabIgnoreApprovals": true,
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "io.quarkus",
+        "io.quarkus:**",
+        "io.quarkus.**"
+      ],
+      "groupName": "quarkus"
+    }
+  ]
+}
