@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import external.lib.MyData;
 import io.quarkus.jackson.ObjectMapperCustomizer;
 
 /**
@@ -52,8 +53,8 @@ public class MyDataCustomizer implements ObjectMapperCustomizer {
         public void serialize(final MyData value, final JsonGenerator gen,
                 final SerializerProvider serializers) throws IOException {
             gen.writeStartArray();
-            gen.writeString(value.getLineOne());
-            gen.writeString(value.getLineTwo());
+            gen.writeString(value.getLine1());
+            gen.writeString(value.getLine2());
             gen.writeEndArray();
         }
     }

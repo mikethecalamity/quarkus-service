@@ -7,14 +7,14 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import my.project.dto.MyDataMessage;
-import my.project.type.Source;
-
+import external.lib.MyData;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
+import my.project.dto.MyDataMessage;
+import my.project.type.Source;
 
 /**
  * Tests for {@link MyDataRepository}
@@ -35,17 +35,17 @@ public class MyDataRepositoryTest {
     void findLatestTest() {
         final UUID id = UUID.randomUUID();
 
-        final MyDataEntity entity1 = new MyDataEntity(id, Instant.from(DATA1.getEpoch()), Source.SOURCE2, DATA1);
-        final MyDataEntity entity2 = new MyDataEntity(id, Instant.from(DATA2.getEpoch()), Source.SOURCE1, DATA2);
-        final MyDataEntity entity3 = new MyDataEntity(id, Instant.from(DATA3.getEpoch()), Source.SOURCE2, DATA3);
-        final MyDataEntity entity4 = new MyDataEntity(id, Instant.from(DATA4.getEpoch()), Source.SOURCE1, DATA4);
+        final MyDataEntity entity1 = new MyDataEntity(id, Instant.ofEpochSecond(DATA1.getEpoch()), Source.SOURCE2, DATA1);
+        final MyDataEntity entity2 = new MyDataEntity(id, Instant.ofEpochSecond(DATA2.getEpoch()), Source.SOURCE1, DATA2);
+        final MyDataEntity entity3 = new MyDataEntity(id, Instant.ofEpochSecond(DATA3.getEpoch()), Source.SOURCE2, DATA3);
+        final MyDataEntity entity4 = new MyDataEntity(id, Instant.ofEpochSecond(DATA4.getEpoch()), Source.SOURCE1, DATA4);
         dataRepository.persist(entity1, entity2, entity3, entity4);
 
         final MyDataMessage result = dataRepository.findLatest(id).subscribe().withSubscriber(UniAssertSubscriber.create())
                 .assertCompleted().getItem();
         assertThat(result.getId()).isEqualTo(id);
-        assertThat(result.getTimestamp()).isEqualTo(Instant.from(DATA3.getEpoch()));
+        assertThat(result.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA3.getEpoch()));
         assertThat(result.getSource()).isEqualTo(Source.SOURCE2);
-        assertThat(result.getMyData()).isEqualTo(DATA3);
+        assertThat(result.getData()).isEqualTo(DATA3);
     }
 }
