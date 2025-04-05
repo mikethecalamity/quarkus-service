@@ -17,11 +17,11 @@ import jakarta.persistence.Table;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import my.project.type.Source;
-
+import external.lib.MyData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import my.project.type.Source;
 
 @Data
 @NoArgsConstructor
@@ -63,7 +63,7 @@ class MyDataEntity {
 
         @Override
         public String[] convertToDatabaseColumn(final MyData data) {
-            return new String[] { data.getLineOne(), data.getLineTwo() };
+            return new String[] { data.getLine1(), data.getLine2() };
         }
 
         @Override

@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+include 'data-client'
+include 'data-manager'
+include 'external-lib'
+
+rootProject.name = 'project'
+
+for (project in rootProject.children) {
+    def projectDirName = project.name.toLowerCase()
+    project.projectDir = file("modules/$projectDirName")
+}

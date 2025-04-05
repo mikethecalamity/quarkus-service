@@ -2,9 +2,10 @@ package my.project.dto;
 
 import java.time.Instant;
 import java.util.UUID;
-import my.project.type.Source;
 
+import external.lib.MyData;
 import lombok.Data;
+import my.project.type.Source;
 
 @Data
 public class MyDataMessage {

@@ -25,6 +25,7 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'jakarta.interceptor:jakarta.interceptor-api'
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
