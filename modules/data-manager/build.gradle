@@ -1,0 +1,36 @@
+plugins {
+    id 'io.quarkus' version "${quarkusVersion}"
+    id 'my.project.gradle-plugin.base-project'
+}
+
+javadoc {
+    enabled = false
+}
+
+compileJava.dependsOn project.compileQuarkusGeneratedSourcesJava
+compileTestJava.dependsOn project.compileQuarkusTestGeneratedSourcesJava
+sourcesJar.dependsOn project.compileQuarkusGeneratedSourcesJava
+
+dependencies {
+    implementation project(':external-lib')
+    implementation project(':data-client')
+
+    implementation 'io.quarkus:quarkus-config-yaml'
+    implementation 'io.quarkus:quarkus-container-image-jib'
+    implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
+    implementation 'io.quarkus:quarkus-messaging-amqp'
+    implementation 'io.quarkus:quarkus-reactive-pg-client'
+    implementation 'io.quarkus:quarkus-smallrye-context-propagation'
+    implementation 'io.quarkus:quarkus-smallrye-health'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
+    testImplementation 'io.quarkus:quarkus-test-h2'
+    testImplementation 'org.assertj:assertj-core'
+    testRuntimeOnly 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.1'
+
+    quarkusDev 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.1'
+}

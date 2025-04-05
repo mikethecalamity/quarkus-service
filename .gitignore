@@ -1,0 +1,20 @@
+# build
+.build/
+.gradle/
+bin/
+build/
+
+# eclipse
+.classpath
+.project
+**/.settings/*buildship*
+**/.settings/*faces*
+**/.settings/*sonarlint*
+**/.settings/*ws*
+**/.settings/org.jboss.ide.eclipse.as.core.prefs
+
+# vs code
+**/.vscode
+
+# logs
+*.log

@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+    id 'my.project.gradle-plugin.base-project'
+}
+
+dependencies {
+    implementation project(':external-lib')
+    
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    implementation 'io.quarkus:quarkus-jackson'
+    implementation 'org.jboss.logging:jboss-logging'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}

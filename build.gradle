@@ -1,0 +1,31 @@
+plugins {
+    id 'my.project.gradle-plugin.java'
+    id 'my.project.gradle-plugin.eclipse'
+}
+
+allprojects {
+    group = 'my.project'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+subprojects {
+    afterEvaluate {
+        dependencies {
+            implementation platform("io.quarkus:quarkus-bom:${quarkusVersion}")
+            implementation platform('com.fasterxml.jackson:jackson-bom:2.18.2')
+            implementation platform('jakarta.platform:jakarta.jakartaee-bom:10.0.0')
+            testImplementation enforcedPlatform('org.junit:junit-bom:5.12.0')
+            testImplementation enforcedPlatform('org.mockito:mockito-bom:5.15.2')
+
+            constraints {
+                annotationProcessor 'org.projectlombok:lombok:1.18.38'
+                compileOnly 'org.projectlombok:lombok:1.18.38'
+                testImplementation 'org.assertj:assertj-core:3.27.3'
+            }
+        }
+    }
+}
