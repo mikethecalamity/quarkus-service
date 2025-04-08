@@ -66,22 +66,6 @@ quarkus:
         ~: update
 
 "%test,dev":
-  mp:
-    messaging:       
-      incoming:
-        incoming-source1-data1:
-          enabled: false
-        incoming-source2-data1:
-          enabled: false
-        incoming-source1-data2:
-          enabled: false
-        incoming-source2-data2:
-          enabled: false
-      outgoing:
-        outgoing-data1:
-          enabled: false
-        outgoing-data2:
-          enabled: false
   quarkus:
     amqp:
       devservices:
@@ -90,7 +74,8 @@ quarkus:
       enabled: false
     datasource:
       db-kind: h2
-      username: admin
+      username: sa
+      password:
       jdbc:
         url: jdbc:h2:mem:default
     hibernate-orm:
