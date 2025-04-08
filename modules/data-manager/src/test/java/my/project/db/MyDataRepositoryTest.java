@@ -12,9 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import external.lib.MyData;
+import io.quarkus.test.TestReactiveTransaction;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.vertx.UniAsserter;
 import io.smallrye.mutiny.helpers.test.AssertSubscriber;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import my.project.dto.MyDataMessage;
@@ -51,27 +53,29 @@ public class MyDataRepositoryTest {
     private MyDataRepository dataRepository;
 
     @BeforeEach
-    void before() {
-        dataRepository.persist(entity1, entity2, entity3, entity4, entity5);
-        dataRepository.flush();
+    @TestReactiveTransaction
+    void before(final UniAsserter asserter) {
+        asserter.execute(() -> dataRepository.persist(entity1, entity2, entity3, entity4, entity5));
+        asserter.execute(() -> dataRepository.flush());
 
-        assertCount(5);
+        assertCount(asserter, 5);
     }
 
     @Test
-    void findLatestTest() {
-        final MyDataMessage result = dataRepository.findLatest(ID1).subscribe()
-                .withSubscriber(UniAssertSubscriber.create()).assertCompleted().getItem();
-        assertThat(result).satisfies(m -> {
-            assertThat(m.getId()).isEqualTo(ID1);
-            assertThat(m.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA3.getEpoch()));
-            assertThat(m.getSource()).isEqualTo(Source.SOURCE2);
-            assertThat(m.getData()).isEqualTo(DATA3);
-        });
+    @TestReactiveTransaction
+    void findLatestTest(final UniAsserter asserter) {
+        asserter.assertThat(() -> dataRepository.findLatest(ID1),
+            m -> {
+                assertThat(m.getId()).isEqualTo(ID1);
+                assertThat(m.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA3.getEpoch()));
+                assertThat(m.getSource()).isEqualTo(Source.SOURCE2);
+                assertThat(m.getData()).isEqualTo(DATA3);
+            });
     }
 
     @Test
-    void findAllLatestTest() {
+    @TestReactiveTransaction
+    void findAllLatestTest(final UniAsserter asserter) {
         final List<MyDataMessage> results = dataRepository.findAllLatest().subscribe()
                 .withSubscriber(AssertSubscriber.create()).assertCompleted().getItems();
         assertThat(results).satisfiesExactlyInAnyOrder(m -> {
@@ -88,9 +92,10 @@ public class MyDataRepositoryTest {
     }
 
     @Test
-    void persistAndFindLatestTest() {
+    @TestReactiveTransaction
+    void persistAndFindLatestTest(final UniAsserter asserter) {
         dataRepository.deleteAll();
-        assertCount(0);
+        assertCount(asserter, 0);
 
         // Add the data and check that the same data is returned
         final UUID id = UUID.randomUUID();
@@ -127,9 +132,7 @@ public class MyDataRepositoryTest {
         });
     }
 
-    private void assertCount(final int expectedCount) {
-        final long count = dataRepository.count().subscribe().withSubscriber(UniAssertSubscriber.create())
-                .assertCompleted().getItem();
-        assertThat(count).isEqualTo(expectedCount);
+    private void assertCount(final UniAsserter asserter, final long expectedCount) {
+        asserter.assertEquals(() -> dataRepository.count(), expectedCount);
     }
 }

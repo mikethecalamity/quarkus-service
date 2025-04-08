@@ -59,8 +59,8 @@ quarkus:
       db-kind: postgresql
       username: postgres
       password: password
-      jdbc:
-        url: jdbc:postgresql://localhost:5432/
+      reactive:
+        url: postgresql://localhost:5432/
     hibernate-orm:
       generation:
         ~: update
@@ -76,8 +76,13 @@ quarkus:
       db-kind: h2
       username: sa
       password:
-      jdbc:
-        url: jdbc:h2:mem:default
+      reactive:
+        url: vertx-reactive:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     hibernate-orm:
+      log:
+        format-sql: true
       generation:
         ~: drop-and-create
+        default-schema: data
+        create-schemas: true
+        halt-on-error: true
