@@ -10,13 +10,14 @@ import jakarta.transaction.Transactional;
 
 import external.lib.MyData;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import my.project.dto.MyDataMessage;
 import my.project.type.Source;
 
 @ApplicationScoped
-@Transactional
+@WithTransaction
 public class MyDataRepository implements PanacheRepositoryBase<MyDataEntity, UUID> {
 
     public Uni<MyDataMessage> findLatest(final UUID id) {

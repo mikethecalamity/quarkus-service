@@ -1,9 +1,11 @@
 package external.lib;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class MyData {
+public class MyData implements Serializable {
     private final String line1;
     private final String line2;
 
