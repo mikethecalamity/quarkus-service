@@ -1,31 +1,41 @@
 plugins {
-    id 'my.project.gradle-plugin.java'
-    id 'my.project.gradle-plugin.eclipse'
+    id 'java-platform'
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+    api platform('io.quarkus:quarkus-bom:3.20.0')
+    api platform('com.fasterxml.jackson:jackson-bom:2.18.2')
+    api platform('jakarta.platform:jakarta.jakartaee-bom:10.0.0')
+    api enforcedPlatform('org.junit:junit-bom:5.12.0')
+    api enforcedPlatform('org.mockito:mockito-bom:5.15.2')
+    
+    constraints {
+        api 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.1'
+        api 'org.projectlombok:lombok:1.18.38'
+        api 'org.assertj:assertj-core:3.27.3'
+    }
 }
 
 allprojects {
     group = 'my.project'
+}
+
+subprojects {
+
+    apply plugin: 'java'
 
     repositories {
         mavenLocal()
         mavenCentral()
     }
-}
-
-subprojects {
-    afterEvaluate {
-        dependencies {
-            implementation platform("io.quarkus:quarkus-bom:${quarkusVersion}")
-            implementation platform('com.fasterxml.jackson:jackson-bom:2.18.2')
-            implementation platform('jakarta.platform:jakarta.jakartaee-bom:10.0.0')
-            testImplementation enforcedPlatform('org.junit:junit-bom:5.12.0')
-            testImplementation enforcedPlatform('org.mockito:mockito-bom:5.15.2')
-
-            constraints {
-                annotationProcessor 'org.projectlombok:lombok:1.18.38'
-                compileOnly 'org.projectlombok:lombok:1.18.38'
-                testImplementation 'org.assertj:assertj-core:3.27.3'
-            }
-        }
+    
+    dependencies {
+        annotationProcessor platform(rootProject)
+        compileOnly platform(rootProject)
+        implementation platform(rootProject)
     }
 }

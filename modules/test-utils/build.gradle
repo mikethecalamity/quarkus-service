@@ -1,0 +1,11 @@
+plugins {
+    id 'java-test-fixtures'
+    id 'my.project.gradle-plugin.base-project'
+}
+
+dependencies {
+    testFixturesImplementation platform(rootProject)
+
+    testFixturesImplementation 'io.quarkus:quarkus-test-common'
+    testFixturesImplementation 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
+}

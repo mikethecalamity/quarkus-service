@@ -13,6 +13,7 @@ dependencies {
     compileOnly gradleApi()
     compileOnly localGroovy()
     implementation 'com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.1.6'
+    implementation 'io.quarkus:gradle-application-plugin:3.20.0'
 }
 
 group = 'my.project.gradle-plugin'
@@ -42,6 +43,10 @@ gradlePlugin {
         jacocoPlugin {
             id = 'my.project.gradle-plugin.jacoco'
             implementationClass = 'my.project.gradle.plugins.JacocoPlugin'
+        }
+        quarkusPlugin {
+            id = 'my.project.gradle-plugin.quarkus'
+            implementationClass = 'my.project.gradle.plugins.QuarkusPlugin'
         }
     }
 }

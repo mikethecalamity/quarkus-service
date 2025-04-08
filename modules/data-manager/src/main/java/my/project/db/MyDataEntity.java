@@ -29,14 +29,12 @@ import my.project.type.Source;
 @Entity
 @Table(schema = "data", name = "data1")
 @NamedQueries({
-    @NamedQuery(
-        name = MyDataEntity.FIND_LATEST_QUERY,
-        query = "SELECT DISTINCT ON (e.id) e FROM MyDataEntity e WHERE id = :id ORDER BY position(e.source IN ('SOURCE2', 'SOURCE1')), e.timestamp DESC"
-    ),
-    @NamedQuery(
-        name = MyDataEntity.FIND_ALL_LATEST_QUERY,
-        query = "SELECT DISTINCT ON (e.id) e FROM MyDataEntity e ORDER BY position(e.source IN ('SOURCE2', 'SOURCE1')), e.timestamp DESC"
-    )
+    @NamedQuery(name = MyDataEntity.FIND_LATEST_QUERY,
+            query = "SELECT DISTINCT ON (e.id) e FROM MyDataEntity e WHERE id = :id "
+                    + "ORDER BY position(e.source IN ('SOURCE2', 'SOURCE1')), e.timestamp DESC"),
+    @NamedQuery(name = MyDataEntity.FIND_ALL_LATEST_QUERY,
+            query = "SELECT DISTINCT ON (e.id) e FROM MyDataEntity e "
+                    + "ORDER BY position(e.source IN ('SOURCE2', 'SOURCE1')), e.timestamp DESC")
 })
 class MyDataEntity {
 
