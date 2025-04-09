@@ -67,24 +67,24 @@ public class MyDataRepositoryTest {
             assertThat(m.getData()).isEqualTo(DATA3);
         });
     }
-//
-//    @Test
-//    @TestReactiveTransaction
-//    void findAllLatestTest(final UniAsserter asserter) {
-//        asserter.assertThat(() -> dataRepository.findAllLatest(), results -> {
-//            assertThat(results).satisfiesExactlyInAnyOrder(m -> {
-//                assertThat(m.getId()).isEqualTo(ID1);
-//                assertThat(m.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA3.getEpoch()));
-//                assertThat(m.getSource()).isEqualTo(Source.SOURCE2);
-//                assertThat(m.getData()).isEqualTo(DATA3);
-//            }, m -> {
-//                assertThat(m.getId()).isEqualTo(ID2);
-//                assertThat(m.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA5.getEpoch()));
-//                assertThat(m.getSource()).isEqualTo(Source.SOURCE1);
-//                assertThat(m.getData()).isEqualTo(DATA5);
-//            });
-//        });
-//    }
+
+    @Test
+    @TestReactiveTransaction
+    void findAllLatestTest(final UniAsserter asserter) {
+        asserter.assertThat(() -> dataRepository.findAllLatest(), results -> {
+            assertThat(results).satisfiesExactlyInAnyOrder(m -> {
+                assertThat(m.getId()).isEqualTo(ID1);
+                assertThat(m.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA3.getEpoch()));
+                assertThat(m.getSource()).isEqualTo(Source.SOURCE2);
+                assertThat(m.getData()).isEqualTo(DATA3);
+            }, m -> {
+                assertThat(m.getId()).isEqualTo(ID2);
+                assertThat(m.getTimestamp()).isEqualTo(Instant.ofEpochSecond(DATA5.getEpoch()));
+                assertThat(m.getSource()).isEqualTo(Source.SOURCE1);
+                assertThat(m.getData()).isEqualTo(DATA5);
+            });
+        });
+    }
 
     @Test
     @TestReactiveTransaction
