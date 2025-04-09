@@ -17,14 +17,14 @@ public class MyDataDBInit {
 
     @Startup
     public void init() {
-//        client.query("CREATE SCHEMA IF NOT EXISTS data").execute().flatMap(r -> client.query("""
-//                CREATE TABLE IF NOT EXISTS data.data1 (
-//                        id UUID NOT NULL,
-//                        timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
-//                        source TEXT NOT NULL,
-//                        data JSONB NOT NULL,
-//                        PRIMARY KEY(id, timestamp, source)
-//                )
-//                """).execute()).await().indefinitely();
+        client.query("CREATE SCHEMA IF NOT EXISTS data").execute().flatMap(r -> client.query("""
+                CREATE TABLE IF NOT EXISTS data.data1 (
+                        id UUID NOT NULL,
+                        timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
+                        source TEXT NOT NULL,
+                        data JSONB NOT NULL,
+                        PRIMARY KEY(id, timestamp, source)
+                )
+                """).execute()).await().indefinitely();
     }
 }
