@@ -58,9 +58,10 @@ quarkus:
     datasource:
       db-kind: postgresql
       username: postgres
-      password: password
+      password: postgres
       reactive:
-        url: postgresql://localhost:5432/
+        url: postgresql://localhost:5432/postgres
+        max-size: 20
     hibernate-orm:
       generation:
         ~: update
@@ -70,19 +71,8 @@ quarkus:
     amqp:
       devservices:
         enabled: true
-    devservices:
-      enabled: false
-    datasource:
-      db-kind: h2
-      username: sa
-      password:
-      reactive:
-        url: vertx-reactive:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     hibernate-orm:
-      log:
-        format-sql: true
       generation:
         ~: drop-and-create
-        default-schema: data
-        create-schemas: true
-        halt-on-error: true
+      log:
+        format-sql: true
