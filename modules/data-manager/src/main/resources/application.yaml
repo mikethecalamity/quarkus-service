@@ -68,9 +68,6 @@ quarkus:
 
 "%test,dev":
   quarkus:
-    amqp:
-      devservices:
-        enabled: true
     hibernate-orm:
       generation:
         ~: drop-and-create
