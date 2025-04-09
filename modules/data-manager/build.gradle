@@ -28,9 +28,9 @@ dependencies {
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'org.awaitility:awaitility'
     testImplementation 'io.quarkus:quarkus-jacoco'
-    testRuntimeOnly 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
+    //testRuntimeOnly 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
 
-    quarkusDev 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
+    //quarkusDev 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
 }
 
 jacocoTestCoverageVerification {
