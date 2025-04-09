@@ -46,6 +46,12 @@ quarkus:
     console:
       format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] [%X] (%t) %s%e%n"
     category:
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    reactive:
+      url: postgresql://localhost:5432/postgres
   hibernate-orm:
     generation:
       create-schemas: true
@@ -55,13 +61,6 @@ quarkus:
   amqp-host: amqp
   amqp-port: 5672
   quarkus:
-    datasource:
-      db-kind: postgresql
-      username: postgres
-      password: postgres
-      reactive:
-        url: postgresql://localhost:5432/postgres
-        max-size: 20
     hibernate-orm:
       generation:
         ~: update
