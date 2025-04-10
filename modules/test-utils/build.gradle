@@ -1,6 +1,5 @@
 plugins {
     id 'java-test-fixtures'
-    id 'my.project.gradle-plugin.base-project'
 }
 
 dependencies {

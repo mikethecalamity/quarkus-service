@@ -1,6 +1,7 @@
 plugins {
-    id 'my.project.gradle-plugin.base-project'
-    id 'my.project.gradle-plugin.quarkus'
+    id 'java'
+    id 'jacoco'
+    id 'io.quarkus'
 }
 
 dependencies {
@@ -19,7 +20,7 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'jakarta.interceptor:jakarta.interceptor-api'
+    implementation 'jakarta.interceptor:jakarta.interceptor-api'
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
