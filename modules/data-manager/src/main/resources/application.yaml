@@ -53,22 +53,29 @@ quarkus:
     reactive:
       url: postgresql://localhost:5432/postgres
   hibernate-orm:
-    generation:
-      create-schemas: true
-      halt-on-error: true
+    database:
+      generation:
+        create-schemas: true
+        halt-on-error: true
 
 "%prod":
   amqp-host: amqp
   amqp-port: 5672
   quarkus:
     hibernate-orm:
-      generation:
-        ~: update
+      database:
+        generation:
+          ~: update
 
 "%test,dev":
   quarkus:
+    #datasource:
+    #  db-kind: h2
+    #  reactive:
+    #    url: vertx-reactive:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     hibernate-orm:
-      generation:
-        ~: drop-and-create
       log:
         format-sql: true
+      database:
+        generation:
+          ~: drop-and-create

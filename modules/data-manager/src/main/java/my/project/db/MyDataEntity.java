@@ -14,9 +14,9 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.Index;
 import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import external.lib.MyData;
@@ -31,14 +31,27 @@ import my.project.type.Source;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "data", name = "data1")
+@Table(schema = "data", name = "data1", indexes = @Index(columnList = "id, "))
 @NamedQueries({
-//    @NamedQuery(name = MyDataEntity.FIND_LATEST_QUERY,
-//            query = "SELECT DISTINCT ON (e.key.id) e FROM MyDataEntity e WHERE e.key.id = ?1 "
-//                    + "ORDER BY position(e.key.source IN ('SOURCE2', 'SOURCE1')), e.key.timestamp DESC"),
-//    @NamedQuery(name = MyDataEntity.FIND_ALL_LATEST_QUERY,
-//            query = "SELECT DISTINCT ON (e.key.id) e FROM MyDataEntity e "
-//                    + "ORDER BY position(e.key.source IN ('SOURCE2', 'SOURCE1')), e.key.timestamp DESC")
+    @NamedQuery(name = MyDataEntity.FIND_LATEST_QUERY,
+            query = """
+                    SELECT e FROM MyDataEntity e
+                    WHERE e.key.id = ?1
+                    ORDER BY e.key.source ASC, e.key.timestamp DESC
+                    FETCH FIRST 1 ROW ONLY
+                    """),
+    @NamedQuery(name = MyDataEntity.FIND_ALL_LATEST_QUERY,
+            query = """
+                    SELECT e FROM MyDataEntity e WHERE NOT EXISTS (
+                      SELECT 1 FROM MyDataEntity e2
+                      WHERE e.key.id = e2.key.id
+                      AND (
+                        e.key.source > e2.key.source OR (
+                          e.key.source = e2.key.source AND e.key.timestamp < e2.key.timestamp
+                        )
+                      )
+                    )
+                    """)
 })
 class MyDataEntity implements Serializable  {
 
@@ -50,7 +63,6 @@ class MyDataEntity implements Serializable  {
     private Key key;
 
     @Column(name = "data", columnDefinition = "JSONB", nullable = false, updatable = false)
-    //@JdbcTypeCode(SqlTypes.JSON_ARRAY)
     @Convert(converter = MyDataConverter.class)
     private MyData data;
 
@@ -69,6 +81,19 @@ class MyDataEntity implements Serializable  {
 
     public Source getSource() {
         return key.getSource();
+    }
+
+    static class SourceConverter implements AttributeConverter<Source, Integer> {
+
+        @Override
+        public Integer convertToDatabaseColumn(final Source value) {
+            return value.getValue();
+        }
+
+        @Override
+        public Source convertToEntityAttribute(final Integer value) {
+            return Source.fromValue(value);
+        }
     }
 
     static class MyDataConverter implements AttributeConverter<MyData, String> {
@@ -98,8 +123,8 @@ class MyDataEntity implements Serializable  {
         @Column(name = "timestamp", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false, updatable = false)
         private Instant timestamp;
 
-        @Column(name = "source", columnDefinition = "TEXT", nullable = false, updatable = false)
-        @Enumerated(EnumType.STRING)
+        @Column(name = "source", columnDefinition = "INT", nullable = false, updatable = false)
+        @Convert(converter = SourceConverter.class)
         private Source source;
     }
 }

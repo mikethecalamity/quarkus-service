@@ -13,8 +13,11 @@ dependencies {
     implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
     implementation 'io.quarkus:quarkus-messaging-amqp'
     implementation 'io.quarkus:quarkus-reactive-pg-client'
+    implementation 'io.quarkus:quarkus-rest'
     implementation 'io.quarkus:quarkus-smallrye-context-propagation'
     implementation 'io.quarkus:quarkus-smallrye-health'
+    
+    implementation 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
