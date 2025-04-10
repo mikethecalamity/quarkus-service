@@ -1,6 +1,7 @@
 package my.project.db;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.enterprise.context.ApplicationScoped;

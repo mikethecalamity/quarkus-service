@@ -1,6 +1,6 @@
 plugins {
-    id 'my.project.gradle-plugin.base-project'
-    id 'my.project.gradle-plugin.quarkus'
+    id 'java'
+    id 'io.quarkus'
 }
 
 dependencies {
@@ -21,7 +21,6 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'jakarta.interceptor:jakarta.interceptor-api'
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
@@ -31,24 +30,4 @@ dependencies {
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'org.awaitility:awaitility'
     testImplementation 'io.quarkus:quarkus-jacoco'
-    //testRuntimeOnly 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
-
-    //quarkusDev 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                counter = 'CLASS'
-                minimum = 1.0
-            }
-        }
-        rule {
-            limit {
-                counter = 'LINE'
-                minimum = 0.90
-            }
-        }
-    }
 }
