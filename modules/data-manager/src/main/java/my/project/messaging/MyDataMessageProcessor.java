@@ -16,9 +16,9 @@ import my.project.type.Source;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class MyDataMessageProcessor {
 
-    static final String INCOMING1_CHANNEL = "incoming-source1-data1";
-    static final String INCOMING2_CHANNEL = "incoming-source2-data1";
-    static final String OUTGOING_CHANNEL = "outgoing-data1";
+    public static final String INCOMING1_CHANNEL = "incoming-source1-data1";
+    public static final String INCOMING2_CHANNEL = "incoming-source2-data1";
+    public static final String OUTGOING_CHANNEL = "outgoing-data1";
 
     private final MyDataRepository dataRepository;
 
