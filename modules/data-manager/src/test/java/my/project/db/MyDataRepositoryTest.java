@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import external.lib.MyData;
 import io.quarkus.test.TestReactiveTransaction;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.vertx.UniAsserter;
 import my.project.type.Source;
@@ -19,7 +21,7 @@ import my.project.type.Source;
  * Tests for {@link MyDataRepository}
  */
 @QuarkusTest
-//@QuarkusTestResource(H2DatabaseTestResource.class)
+@QuarkusTestResource(H2DatabaseTestResource.class)
 @TestReactiveTransaction
 public class MyDataRepositoryTest {
 

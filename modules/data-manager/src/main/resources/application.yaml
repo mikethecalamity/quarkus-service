@@ -69,10 +69,10 @@ quarkus:
 
 "%test,dev":
   quarkus:
-    #datasource:
-    #  db-kind: h2
-    #  reactive:
-    #    url: vertx-reactive:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    datasource:
+      db-kind: h2
+      reactive:
+        url: vertx-reactive:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     hibernate-orm:
       log:
         format-sql: true
