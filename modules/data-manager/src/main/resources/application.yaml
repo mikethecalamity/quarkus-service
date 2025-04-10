@@ -79,3 +79,21 @@ quarkus:
       database:
         generation:
           ~: drop-and-create
+
+"%dev":
+  mp:
+    messaging:
+      incoming:
+        incoming-source1-data1:
+          connector: smallrye-in-memory
+        incoming-source2-data1:
+          connector: smallrye-in-memory
+        incoming-source1-data2:
+          connector: smallrye-in-memory
+        incoming-source2-data2:
+          connector: smallrye-in-memory
+      outgoing:
+        outgoing-data1:
+          connector: smallrye-in-memory
+        outgoing-data2:
+          connector: smallrye-in-memory

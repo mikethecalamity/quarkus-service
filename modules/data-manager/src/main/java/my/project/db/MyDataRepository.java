@@ -1,6 +1,7 @@
 package my.project.db;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -30,7 +31,6 @@ public class MyDataRepository implements PanacheRepositoryBase<MyDataEntity, UUI
     public Uni<MyDataMessage> persistAndFindLatest(final UUID id, final Instant timestamp, final Source source,
             final MyData data) {
         final MyDataEntity entity = new MyDataEntity(id, timestamp, source, data);
-        return persist(entity) //.onItem().transformToUni(e -> findLatest(id));
-                .onItem().transform(e -> new MyDataMessage(e.getId(), e.getTimestamp(), e.getSource(), e.getData()));
+        return persist(entity).onItem().transformToUni(e -> findLatest(id));
     }
 }
