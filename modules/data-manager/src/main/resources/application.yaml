@@ -30,6 +30,8 @@ mp:
         merge: true
 
 quarkus:
+  devservices:
+    enabled: false
   analytics:
     disabled: true
   container-image:
@@ -72,7 +74,7 @@ quarkus:
     datasource:
       db-kind: h2
       reactive:
-        url: vertx-reactive:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+        url: h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
     hibernate-orm:
       log:
         format-sql: true

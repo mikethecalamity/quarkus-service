@@ -14,7 +14,7 @@ dependencies {
     api enforcedPlatform('org.mockito:mockito-bom:5.15.2')
     
     constraints {
-        api 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.1'
+        api 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.2'
         api 'org.projectlombok:lombok:1.18.38'
         api 'org.assertj:assertj-core:3.27.3'
     }
