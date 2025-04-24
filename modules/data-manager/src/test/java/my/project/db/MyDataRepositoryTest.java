@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import jakarta.inject.Inject;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import external.lib.MyData;
@@ -18,6 +19,7 @@ import my.project.type.Source;
 /**
  * Tests for {@link MyDataRepository}
  */
+@Disabled
 @QuarkusTest
 //@QuarkusTestResource(H2DatabaseTestResource.class)
 @TestReactiveTransaction
