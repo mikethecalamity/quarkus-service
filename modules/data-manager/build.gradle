@@ -17,11 +17,11 @@ dependencies {
     implementation 'io.quarkus:quarkus-rest-jackson'
     implementation 'io.quarkus:quarkus-smallrye-context-propagation'
     implementation 'io.quarkus:quarkus-smallrye-health'
-
+    
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
-    implementation 'jakarta.interceptor:jakarta.interceptor-api'
 
+    testImplementation 'io.quarkus:quarkus-jacoco'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.quarkus:quarkus-test-h2'
@@ -29,12 +29,21 @@ dependencies {
     testImplementation 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'org.awaitility:awaitility'
-    testImplementation 'io.quarkus:quarkus-jacoco'
     //testRuntimeOnly 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
 
     //quarkusDev 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
     quarkusDev 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
 }
+
+test {
+    finalizedBy jacocoTestReport
+    jacoco {
+        excludeClassLoaders = ["*QuarkusClassLoader"]
+        destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
+    }
+    jacocoTestReport.enabled = false
+}
+jacocoTestCoverageVerification.executionData.from "${buildDir}/jacoco-quarkus.exec"
 
 jacocoTestCoverageVerification {
     violationRules {

@@ -8,10 +8,6 @@ javaPlatform {
 
 dependencies {
     api platform('io.quarkus:quarkus-bom:3.20.0')
-    api platform('com.fasterxml.jackson:jackson-bom:2.18.2')
-    api platform('jakarta.platform:jakarta.jakartaee-bom:10.0.0')
-    api enforcedPlatform('org.junit:junit-bom:5.12.0')
-    api enforcedPlatform('org.mockito:mockito-bom:5.15.2')
     
     constraints {
         api 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.1'
