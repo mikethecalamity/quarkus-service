@@ -1,63 +1,12 @@
 plugins {
     id 'java'
-    id 'jacoco'
     id 'io.quarkus'
 }
 
 dependencies {
-    implementation project(':external-lib')
-    implementation project(':data-client')
-    testImplementation testFixtures(project(':test-utils'))
-
     implementation 'io.quarkus:quarkus-config-yaml'
-    implementation 'io.quarkus:quarkus-container-image-jib'
-    implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
-    implementation 'io.quarkus:quarkus-messaging-amqp'
-    implementation 'io.quarkus:quarkus-reactive-pg-client'
     implementation 'io.quarkus:quarkus-rest-jackson'
     implementation 'io.quarkus:quarkus-smallrye-context-propagation'
     implementation 'io.quarkus:quarkus-smallrye-health'
-    
-    annotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.projectlombok:lombok'
-
-    testImplementation 'io.quarkus:quarkus-jacoco'
-    testImplementation 'io.quarkus:quarkus-junit5'
-    testImplementation 'io.quarkus:quarkus-junit5-mockito'
-    testImplementation 'io.quarkus:quarkus-test-h2'
-    testImplementation 'io.quarkus:quarkus-test-vertx'
-    testImplementation 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
-    testImplementation 'org.assertj:assertj-core'
-    testImplementation 'org.awaitility:awaitility'
-    //testRuntimeOnly 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
-
-    //quarkusDev 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client'
-    quarkusDev 'io.smallrye.reactive:smallrye-reactive-messaging-in-memory'
-}
-
-test {
-    finalizedBy jacocoTestReport
-    jacoco {
-        excludeClassLoaders = ["*QuarkusClassLoader"]
-        destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
-    }
-    jacocoTestReport.enabled = false
-}
-jacocoTestCoverageVerification.executionData.from "${buildDir}/jacoco-quarkus.exec"
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                counter = 'CLASS'
-                minimum = 1.0
-            }
-        }
-        rule {
-            limit {
-                counter = 'LINE'
-                minimum = 0.90
-            }
-        }
-    }
+    implementation 'io.quarkiverse.artemis:quarkus-artemis-jms'
 }

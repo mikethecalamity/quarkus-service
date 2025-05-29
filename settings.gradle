@@ -5,14 +5,11 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        id 'io.quarkus' version '3.20.0' apply false
+        id 'io.quarkus' version '3.22.3' apply false
     }
 }
 
-include 'data-client'
 include 'data-manager'
-include 'external-lib'
-include 'test-utils'
 
 rootProject.name = 'project'
 

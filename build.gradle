@@ -7,12 +7,10 @@ javaPlatform {
 }
 
 dependencies {
-    api platform('io.quarkus:quarkus-bom:3.20.0')
+    api platform('io.quarkus:quarkus-bom:3.22.3')
     
     constraints {
-        api 'io.quarkiverse.quarkus-reactive-h2-client:quarkus-reactive-h2-client:0.5.1'
-        api 'org.projectlombok:lombok:1.18.38'
-        api 'org.assertj:assertj-core:3.27.3'
+        api 'io.quarkiverse.artemis:quarkus-artemis-jms:3.8.0'
     }
 }
 
