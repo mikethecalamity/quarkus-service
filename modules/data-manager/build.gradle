@@ -8,5 +8,6 @@ dependencies {
     implementation 'io.quarkus:quarkus-rest-jackson'
     implementation 'io.quarkus:quarkus-smallrye-context-propagation'
     implementation 'io.quarkus:quarkus-smallrye-health'
-    implementation 'io.quarkiverse.artemis:quarkus-artemis-jms'
+    implementation 'io.quarkiverse.artemis:quarkus-artemis-jms:3.8.0'
+    //implementation 'org.amqphub.quarkus:quarkus-qpid-jms:2.8.0'
 }

@@ -10,7 +10,6 @@ dependencies {
     api platform('io.quarkus:quarkus-bom:3.22.3')
     
     constraints {
-        api 'io.quarkiverse.artemis:quarkus-artemis-jms:3.8.0'
     }
 }
 
